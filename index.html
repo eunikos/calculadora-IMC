@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que é IMC e como calcular?</title>
+    <link rel="stylesheet" href="style.css">
+    <style>img[alt="www.000webhost.com"]{
+        display: none;
+    }
+    </style>
+</head>
+
+<body style="z-index:99999999 !important;">
+    <div>
+        <form>
+             <!--Título e parágrafo sobre o que o IMC.-->
+            <h1>O que é IMC?</h1>
+            <p style="text-align: justify; font-size: 15px;">IMC (Índice de Massa Corpórea) é uma medida utilizada
+                mundialmente para avaliação da saúde do nosso corpo, fazendo uma relação entre o nosso peso e nossa
+                altura. O cálculo determina a proporção da nossa massa por metro quadrado (m²). De acordo com o
+                resultado podemos determinar se estamos dentro da faixa ideal de peso para nossa altura, como também, se
+                estamos abaixo ou acima dela.</p>
+            <h1 id="segundo">Vamos calcular seu IMC?</h1>
+            <!--aqui esta a div da calculadora IMC.-->
+            <div id="calculando">
+            <h2> Informe:</h2>
+            <p id="input">Peso <abbr title="Digite aqui seu peso"><input style="margin-left: 8px;" type="number" id="peso" name="peso" placeholder="85"></abbr> kg
+            </p>
+            <p id="input">Altura <abbr title="Digite aqui sua altura"><input class="input" type="number" id="altura" name="altura" placeholder="1,89"></abbr> m</p>
+            <p><abbr title="Clique aqui para calcular"><input id="butao" type="button" value="Calcular seu IMC" onclick="calcular();"></abbr></p>
+            </div> 
+             <!--fim da div calculadora IMC.-->
+             <p style="text-align: center; font-size: 15px;">Clique em <strong>Ler mais</strong> para ler o texto: Nosso peso e sua relação direta com nossa saúde; mental e física. </p>
+             <a href="pg2.html"><input id="next" type="button" value="Ler mais"></a>
+        </form>
+    </div>
+    <script>
+        //função para mostrar e remover pop up de acordo com ações do usuário.
+        function resposta(popup) {
+            const resp = document.getElementById(popup);
+            resp.classList.add('resposta');
+            resp.addEventListener('click', (e) => {
+                if (e.target.id == popup || e.target.id == ("fechar")) {
+                    resp.classList.remove('resposta');
+                }
+            });
+        }
+        //chamada da função resposta quando houver um clique di usuário no botão "Calcular seu IMC".
+        const evento = document.getElementById("butao");
+        evento.addEventListener('click', () => resposta("popup"));
+        //função para calcular o IMC
+        //esta função pega por id dois valores digitados pelo usuário e faz o calculo do IMC.
+        function calcular() {
+            var peso = document.getElementById("peso").value;
+            var altura = document.getElementById("altura").value;
+            var resultado1 = document.getElementById("resultado");
+            var resultado = (peso / (altura ** 2));
+            //esta parte da função que calcula o IMC verifica dentro de qual intervalo de peso o usuário está.
+            if (resultado.toFixed(1) < 18.5) {
+                resultado1.innerHTML = `Seu IMC é ${resultado.toFixed(1)} Kg/m², você está abaixo da faixa de peso ideal.`;
+            }
+            else if ((resultado.toFixed(1) >= 18.5) & (resultado <= 24.9)) {
+                resultado1.innerHTML = `Seu IMC é ${resultado.toFixed(1)} Kg/m², você está dentro da faixa de peso ideal.`;
+            }
+            else if ((resultado.toFixed(1) >= 25) & (resultado <= 29.9)) {
+                resultado1.innerHTML = `Seu IMC é ${resultado.toFixed(1)} Kg/m², você está com sobrepeso.`;
+            }
+            else if ((resultado.toFixed(1) >= 30) & (resultado <= 34.9)) {
+                resultado1.innerHTML = `Seu IMC é ${resultado.toFixed(1)} Kg/m². você está com obesidade grau I.`;
+            }
+            else if ((resultado.toFixed(1) >= 35) & (resultado <= 39.9)) {
+                resultado1.innerHTML = `Seu IMC é ${resultado.toFixed(1)} Kg/m², você está com obesidade grau II.`;
+            }
+            else if (resultado.toFixed(1) >= 40) {
+                resultado1.innerHTML = `Seu IMC é ${resultado.toFixed(1)} Kg/m², você está com obesidade grau III ou mórbida.`;
+            }
+        }
+    </script>
+    <!--aqui estão os elementos que compõem o pop up de resposta-->
+    <div id="popup" style=" z-index:2000000000 !important;">
+        <form id="resposta">
+            <img id="Img" src="midia/imagem-resposta.png" alt="pesando-se na balança">
+            <div>
+                <p id="resultado"><strong>(ERRO):</strong> Por favor, verifique se os campos <strong>"Altura"</strong> e <strong>"Peso"</strong> estão digitados corretamente ou se não estão vazios.</p>
+                    <input id="fechar" value="Fechar"></input>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
